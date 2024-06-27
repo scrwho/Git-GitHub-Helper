@@ -4,7 +4,18 @@
 
 This guide will take you through the basics of Git and GitHub, from installation to your first commit. By the end, you'll understand how to track changes in your projects and collaborate with others.
 
-## Step 1: Install Git
+
+## Step 1: Create a GitHub Account
+
+1. **Sign Up**:
+   - Go to [GitHub](https://github.com/).
+   - Click "Sign up" and fill out the registration form.
+
+2. **Verify Your Email**:
+   - Check your email for a verification link from GitHub.
+   - Click the link to verify your account.
+
+## Step 2: Install Git
 
 1. **Download Git**:
    - Go to the official [Git website](https://git-scm.com/).
@@ -19,7 +30,7 @@ This guide will take you through the basics of Git and GitHub, from installation
    - Open your terminal or command prompt.
    - Run the command `git --version`. You should see the installed version of Git.
 
-## Step 2: Configure Git
+## Step 3: Configure Git
 
 1. **Set Your Username**:
    ```sh
@@ -31,20 +42,58 @@ This guide will take you through the basics of Git and GitHub, from installation
    git config --global user.email "your.email@example.com"
    ```
 
-3. **Check Your Configuration**:
+3. Link your GitHub to Local machine using SSh
+- Generate a new SSH key pair by running the following command:
+```
+ssh-keygen -t rsa -b 4096 -C "your.email@example.com"
+```
+- When prompted, press Enter to accept the default location for storing the key pair (~/.ssh/id_rsa). You can also provide a custom path if desired.
+- Enter a secure passphrase when prompted
+- Add the new SSH key to the ssh-agent by running the following commands:
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+- Enter your passphrase (if you set one) when prompted.
+- Copy the public key to your clipboard by running:
+```
+cat ~/.ssh/id_rsa.pub
+```
+- Select and copy the entire output (which starts with ssh-rsa and ends with your email address). [https://github.com/settings/keys](https://github.com/settings/keys)
+- Open your GitHub account in a web browser and navigate to the "Settings" page.
+- Click on "SSH and GPG keys" in the left sidebar.
+- Click on "New SSH key" and provide a descriptive title for the new key (e.g., "Linux PC").
+- Paste the copied public key from step 6 into the "Key" text area.
+- Click "Add SSH key" to save the new key.
+
+5. **Check Your Configuration**:
    ```sh
    git config --list
    ```
+   
+#### Alternatively
+6. **Use GitHub CLI**
+  - Windows: MSI installers are available for download on the [releases page](https://github.com/cli/cli/releases/latest).
+  - MacOS: `curl -sS https://webi.sh/gh | sh` or `brew install gh`
+  - Linux: 
+  ```
+  (type -p wget >/dev/null || (sudo apt-get update && sudo apt-get-get install wget -y)) \
+&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+&& wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt-get update \
+&& sudo apt-get install gh -y
+  ```
 
-## Step 3: Create a GitHub Account
+7. **Authenticate with GitHub**
+   - Run this command from your terminal.
+   ```sh
+   gh auth login
+   ```
+   - Follow the on-screen prompts.
+   - GitHub CLI automatically stores your Git credentials for you when you choose HTTPS as your preferred protocol for Git operations and answer "yes" to the prompt asking if you would like to authenticate to Git with your GitHub credentials. This can be useful as it allows you to use Git commands like git push and git pull without needing to set up a separate credential manager or use SSH.
 
-1. **Sign Up**:
-   - Go to [GitHub](https://github.com/).
-   - Click "Sign up" and fill out the registration form.
-
-2. **Verify Your Email**:
-   - Check your email for a verification link from GitHub.
-   - Click the link to verify your account.
 
 ## Step 4: Create a Repository on GitHub
 

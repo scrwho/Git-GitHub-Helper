@@ -38,6 +38,28 @@ Steps to Your First GitHub Communication on Your Local Machine
    git config --list
    ```
 
+4. **Use GitHub CLI**
+  - Windows: MSI installers are available for download on the [releases page](https://github.com/cli/cli/releases/latest).
+  - MacOS: `curl -sS https://webi.sh/gh | sh` or `brew install gh`
+  - Linux: 
+  ```
+  (type -p wget >/dev/null || (sudo apt-get update && sudo apt-get-get install wget -y)) \
+&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+&& wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt-get update \
+&& sudo apt-get install gh -y
+  ```
+
+5. **Authenticate with GitHub**
+   - Run this command from your terminal.
+   ```sh
+   gh auth login
+   ```
+   - Follow the on-screen prompts.
+   - GitHub CLI automatically stores your Git credentials for you when you choose HTTPS as your preferred protocol for Git operations and answer "yes" to the prompt asking if you would like to authenticate to Git with your GitHub credentials. This can be useful as it allows you to use Git commands like git push and git pull without needing to set up a separate credential manager or use SSH.
+
 ## Initialize a Local Repository
 
 1. **Open Your Terminal**:
