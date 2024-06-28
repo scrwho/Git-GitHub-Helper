@@ -1,63 +1,55 @@
-# Add your credentials to your Linux machine
+# Add your credentials to your Local machine
 
 To add your credentials to your Linux machine and make it trusted from your GitHub account using the installed Git and SSH, follow these step-by-step instructions:
 
-1. **Open a terminal on your Linux PC.**
+1. **Open a terminal on your Local machine.**
 
-2. initiate
+2. **Configure Git with your username and email:**
 ```
-git config --global user.name "scrwho"
-git config --global user.name
-git config --global user.email "scrwho@gmail.com"
-git config --global user.email
+git config --global user.name "your_username"
+git config --global user.email "your_email@example.com"
 ```
 
-4. **Generate a new SSH key pair** by running the following command:
+3. **Generate a new SSH key pair** by running the following command:
 
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-
-ssh-keygen -t rsa -b 4096 -C "scrwho@gmail.com"
 ```
 
 Replace `your_email@example.com` with the email address associated with your GitHub account.
 
-3. **When prompted, press Enter to accept the default location** for storing the key pair (`~/.ssh/id_rsa`). You can also provide a custom path if desired.
 
-4. **Enter a secure passphrase** when prompted, or leave it blank if you don't want to use a passphrase (not recommended).
+4. **Accept the default location for storing the key pair:**
+   When prompted, press Enter to accept the default location (`~/.ssh/id_rsa`).
 
-5. **Add the new SSH key to the ssh-agent** by running the following commands:
+5. **Enter a secure passphrase:**
+   When prompted, enter a secure passphrase or leave it blank if you prefer not to use a passphrase (not recommended).
 
-```
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
-```
-
+6. **Add the SSH key to the ssh-agent:**
+   ```bash
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_rsa
+   ```
 Enter your passphrase (if you set one) when prompted.
 
-6. **Copy the public key** to your clipboard by running:
 
-```
-cat ~/.ssh/id_rsa.pub
-```
-
+7. **Copy the public key to your clipboard:**
+   ```bash
+   cat ~/.ssh/id_rsa.pub
+   ```
 Select and copy the entire output (which starts with `ssh-rsa` and ends with your email address).
 
 ```
 https://github.com/settings/keys
 ```
 
-7. **Open your GitHub account** in a web browser and navigate to the "Settings" page.
+8. **Add the SSH key to your GitHub account:** [https://github.com/settings/keys](https://github.com/settings/keys)
+   - Open your GitHub account in a web browser.
+   - Go to **Settings** > **SSH and GPG keys**.
+   - Click **New SSH key**, provide a descriptive title (e.g., "Linux PC"), and paste the copied public key into the "Key" text area.
+   - Click **Add SSH key** to save the new key.
 
-8. **Click on "SSH and GPG keys"** in the left sidebar.
-
-9. **Click on "New SSH key"** and provide a descriptive title for the new key (e.g., "Linux PC").
-
-10. **Paste the copied public key** from step 6 into the "Key" text area.
-
-11. **Click "Add SSH key"** to save the new key.
-
-12. **Verify the SSH connection** by running the following command in your terminal:
+9. **Verify the SSH connection** by running the following command in your terminal:
 
 ```
 ssh -T git@github.com
@@ -79,7 +71,7 @@ To install the `gh` command-line tool for GitHub on your terminal, follow these 
 
    **Option 1: Using a Package Manager**
 
-   - **macOS** (with Homebrew):
+   - **macOS** (with curl or Homebrew):
      ```
      curl -sS https://webi.sh/gh | sh
      brew install gh
@@ -103,7 +95,7 @@ To install the `gh` command-line tool for GitHub on your terminal, follow these 
    - Unzip the downloaded file.
    - Move the `gh` binary to a directory included in your system's `PATH`.
 
-1. **Verify the Installation**: Open a new terminal window and run the following command to verify that the `gh` command is installed and available:
+3. **Verify the Installation**: Open a new terminal window and run the following command to verify that the `gh` command is installed and available:
 
    ```
    gh --version
@@ -111,152 +103,58 @@ To install the `gh` command-line tool for GitHub on your terminal, follow these 
 
    This should print the version of the GitHub CLI that you have installed.
 
-After installing the `gh` command-line tool, you can use it to interact with GitHub from your terminal. Some common commands include:
-
-- `gh repo view`: View information about the current repository.
-- `gh pr list`: List open pull requests in the current repository.
-- `gh issue create`: Create a new issue in the current repository.
-- `gh auth login`: Authenticate with your GitHub account.
-
-You can explore more commands and options by running `gh help` or referring to the official GitHub CLI documentation: https://cli.github.com/manual/
-
-
-## Authenticate with a GitHub host.
-
-The default authentication mode is a web-based browser flow. After completion, an authentication token will be stored securely in the system credential store. If a credential store is not found or there is an issue using it gh will fallback to writing the token to a plain text file. See `gh auth status` for its stored location.
-
-Alternatively, use `--with-token` to pass in a token on standard input. The minimum required scopes for the token are: repo, read:org, and gist.
-
-Alternatively, gh will use the authentication token found in environment variables. This method is most suitable for "headless" use of gh such as in automation. See `gh help environment` for more info.
-
-To use gh in GitHub Actions, add `GH_TOKEN: ${{ github.token }}` to env.
-
-The git protocol to use for git operations on this host can be set with `--git-protocol`, or during the interactive prompting. Although login is for a single account on a host, setting the git protocol will take effect for all users on the host.
-
-Specifying ssh for the git protocol will detect existing SSH keys to upload, prompting to create and upload a new key if one is not found. This can be skipped with `--skip-ssh-key` flag.
-
-### Options
-- `-p, --git-protocol <string>`  
-  The protocol to use for git operations on this host: {ssh|https}
-- `-h, --hostname <string>`  
-  The hostname of the GitHub instance to authenticate with
-- `--insecure-storage`  
-  Save authentication credentials in plain text instead of credential store
-- `-s, --scopes <strings>`  
-  Additional authentication scopes to request
-- `--skip-ssh-key`  
-  Skip generate/upload SSH key prompt
-- `-w, --web`  
-  Open a browser to authenticate
-- `--with-token`  
-  Read token from standard input
-
-### Examples
-```sh
-# Start interactive setup
-$ gh auth login
-
-# Authenticate against github.com by reading the token from a file
-$ gh auth login --with-token < mytoken.txt
-
-# Authenticate with specific host
-$ gh auth login --hostname enterprise.internal
-```
+4. **Authenticate with GitHub:**
+   ```bash
+   gh auth login
+   ```
    - Follow the on-screen prompts.
    - GitHub CLI automatically stores your Git credentials for you when you choose HTTPS as your preferred protocol for Git operations and answer "yes" to the prompt asking if you would like to authenticate to Git with your GitHub credentials. This can be useful as it allows you to use Git commands like git push and git pull without needing to set up a separate credential manager or use SSH.
 
+5. **Alternative authentication methods:**
+   - **Using a token:**
+     ```bash
+     gh auth login --with-token < mytoken.txt
+     ```
+   - **Using environment variables:**
+     Set the `GH_TOKEN` environment variable to your token value.
 
 
-Work seamlessly with GitHub from the command line.
-
-### Core commands
-- `gh auth`
-- `gh browse`
-- `gh codespace`
-- `gh gist`
-- `gh issue`
-- `gh org`
-- `gh pr`
-- `gh project`
-- `gh release`
-- `gh repo`
-
-## GitHub Actions commands
-- `gh cache`
-- `gh run`
-- `gh workflow`
-
-## Additional commands
-- `gh alias`
-- `gh api`
-- `gh attestation`
-- `gh completion`
-- `gh config`
-- `gh extension`
-- `gh gpg-key`
-- `gh label`
-- `gh ruleset`
-- `gh search`
-- `gh secret`
-- `gh ssh-key`
-- `gh status`
-- `gh variable`
-
-## Options
-- `--version`  
-  Show gh version
-
-## Examples
-```sh
-$ gh issue create
-$ gh repo clone cli/cli
-$ gh pr checkout 321
-```
 
 
-# push a cloned repository to Git with a new branch,
+# Pushing a Cloned Repository to a New Branch
 
-To push a cloned repository to Git with a new branch, you can follow these steps:
+To push a cloned repository to GitHub with a new branch, follow these steps:
 
-1. **Clone the Repository:**
+1. **Clone the repository:**
    If you haven't already, clone the repository to your local machine using the `git clone` command:
-   ```
+   ```bash
    git clone <repository_url>
    ```
 
-2. **Navigate to the Cloned Repository:**
-   Change your directory to the cloned repository:
-   ```
+2. **Navigate to the cloned repository:**
+   ```bash
    cd <repository_name>
    ```
 
-3. **Create a New Branch:**
+3. **Create and switch to a new branch:**
    Create a new branch locally using the `git checkout` command:
-   ```
+   ```bash
    git checkout -b <new_branch_name>
-   
-   git checkout -b project_branch
-
-   git checkout project_branch
    ```
 
-4. **Make Changes and Commit:**
+4. **Make changes and commit them:**
    Make the necessary changes to the code or files in your local repository. Once you're satisfied with the changes, stage them and commit to the new branch:
-   ```
+   ```bash
    git add .
    git commit -m "Your commit message"
-
-   git add .
-   git commit -m "a project_branch branch"
    ```
 
-5. **Push the New Branch to Remote:**
+5. **Push the new branch to GitHub:**
    Push the new branch to the remote repository (usually named `origin` by default) using the `git push` command:
-   ```
+   ```bash
    git push origin <new_branch_name>
-
-   git push origin project_branch
    ```
+
 
 6. **Verify on Git Hosting Platform:**
    Visit your Git hosting platform (e.g., GitHub, GitLab, Bitbucket) and navigate to your repository. You should see the newly pushed branch listed.
