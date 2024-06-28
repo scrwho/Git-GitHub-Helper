@@ -81,6 +81,7 @@ To install the `gh` command-line tool for GitHub on your terminal, follow these 
 
    - **macOS** (with Homebrew):
      ```
+     curl -sS https://webi.sh/gh | sh
      brew install gh
      ```
 
@@ -97,11 +98,12 @@ To install the `gh` command-line tool for GitHub on your terminal, follow these 
    **Option 2: Downloading a Binary**
 
    - Visit the GitHub CLI releases page: https://github.com/cli/cli/releases/latest
+   - choose the binary depending on your OS
    - Download the binary for your operating system and architecture.
    - Unzip the downloaded file.
    - Move the `gh` binary to a directory included in your system's `PATH`.
 
-3. **Verify the Installation**: Open a new terminal window and run the following command to verify that the `gh` command is installed and available:
+1. **Verify the Installation**: Open a new terminal window and run the following command to verify that the `gh` command is installed and available:
 
    ```
    gh --version
@@ -160,6 +162,8 @@ $ gh auth login --with-token < mytoken.txt
 # Authenticate with specific host
 $ gh auth login --hostname enterprise.internal
 ```
+   - Follow the on-screen prompts.
+   - GitHub CLI automatically stores your Git credentials for you when you choose HTTPS as your preferred protocol for Git operations and answer "yes" to the prompt asking if you would like to authenticate to Git with your GitHub credentials. This can be useful as it allows you to use Git commands like git push and git pull without needing to set up a separate credential manager or use SSH.
 
 
 
@@ -231,9 +235,9 @@ To push a cloned repository to Git with a new branch, you can follow these steps
    ```
    git checkout -b <new_branch_name>
    
-   git checkout -b flucto_branch
+   git checkout -b project_branch
 
-   git checkout flucto_branch
+   git checkout project_branch
    ```
 
 4. **Make Changes and Commit:**
@@ -243,7 +247,7 @@ To push a cloned repository to Git with a new branch, you can follow these steps
    git commit -m "Your commit message"
 
    git add .
-   git commit -m "a flucto_branch branch"
+   git commit -m "a project_branch branch"
    ```
 
 5. **Push the New Branch to Remote:**
@@ -251,7 +255,7 @@ To push a cloned repository to Git with a new branch, you can follow these steps
    ```
    git push origin <new_branch_name>
 
-   git push origin flucto_branch
+   git push origin project_branch
    ```
 
 6. **Verify on Git Hosting Platform:**
@@ -278,7 +282,7 @@ To push your branch to the main branch (or another target branch) for review, yo
    ```
    git push origin <your_branch_name>
 
-   git push origin flucto_branch
+   git push origin project_branch
    ```
 
 3. **Create a Pull Request:**
@@ -305,15 +309,15 @@ To push your branch to the main branch (or another target branch) for review, yo
    git push origin --delete <your_branch_name>  # Remotely
 
    
-   git branch -d flucto_branch # Locally
-   git push origin --delete flucto_branch # Remotely
+   git branch -d project_branch # Locally
+   git push origin --delete project_branch # Remotely
    ```
 
 That's it! You've successfully pushed your branch to the main branch for review using a pull request workflow.
 
 ## To update your local Git repository and push changes 
 
-To update your local Git repository and push changes to the `flucto_branch` on GitHub, follow these steps:
+To update your local Git repository and push changes to the `project_branch` on GitHub, follow these steps:
 
 1. **Check Current Branch:**
    First, ensure you are on the branch you want to update. You can check the current branch with:
@@ -322,9 +326,9 @@ To update your local Git repository and push changes to the `flucto_branch` on G
    ```
 
 2. **Switch to the Branch:**
-   If you are not on the `flucto_branch`, switch to it using:
+   If you are not on the `project_branch`, switch to it using:
    ```
-   git checkout flucto_branch
+   git checkout project_branch
    ```
 
 3. **Add and Commit Changes:**
@@ -338,20 +342,20 @@ To update your local Git repository and push changes to the `flucto_branch` on G
    ```
 
 4. **Push Changes to GitHub:**
-   Push the committed changes to the `flucto_branch` on GitHub:
+   Push the committed changes to the `project_branch` on GitHub:
    ```
-   git push origin flucto_branch
+   git push origin project_branch
    ```
 
 5. **Verify Changes on GitHub:**
-   Go to your GitHub repository in your web browser and navigate to the `flucto_branch` to verify that the changes have been pushed successfully.
+   Go to your GitHub repository in your web browser and navigate to the `project_branch` to verify that the changes have been pushed successfully.
 
-These steps will update your local Git repository with any changes you've made and push those changes to the `flucto_branch` on GitHub. Make sure to replace `"Your commit message here"` with a descriptive commit message explaining the changes you've made.
+These steps will update your local Git repository with any changes you've made and push those changes to the `project_branch` on GitHub. Make sure to replace `"Your commit message here"` with a descriptive commit message explaining the changes you've made.
 
 ### Merging via command line
 If you do not want to use the merge button or an automatic merge cannot be performed, you can perform a manual merge on the command line. However, the following steps are not applicable if the base branch is protected.
 ```
-https://github.com/flucto-gmbh/oscar-coding-challenge.git
+https://github.com/project/oscar-git.git
 ```
 Step 1: Clone the repository or update your local repository with the latest changes.
 ```
@@ -363,7 +367,7 @@ git checkout main
 ```
 Step 3: Merge the head branch into the base branch.
 ```
-git merge flucto_branch
+git merge project_branch
 ```
 Step 4: Push the changes.
 ```
